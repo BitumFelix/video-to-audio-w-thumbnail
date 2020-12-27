@@ -8,19 +8,21 @@
 
 
 
-for f in *.mp4;
+for f in *.mkv;
   do
+      echo "Opening file $f"
 
-  # Extract thumbnail from mp4
-  ffmpeg -i $f -ss 00:00:18 -vframes 1 $f.png
-  # And save to variable image
-  echo "Opening file $f"
-  var image
+      # Extract thumbnail from mp4
+      echo "Extracting thumbnail from $f"
+      ffmpeg -i "$f" -ss 00:00:18 -vframes 1 "${f%.*}".png
 
-  # convert mp4 to mp3
-  ffmpeg -i "$f" -acodec libmp3lame -q:a 2 "${f%.*}.mp3";
+      # And save to variable image
+      # var image = "${f%.*}".png
 
-  #embedd thumbnail to mp4
+      # convert mp4 to mp3
+      #ffmpeg -i "$f" -acodec libmp3lame -q:a 2 "${f%.*}.mp3";
 
-  echo "finished converting and embedding thumbnail into mp3"
+      #embedd thumbnail to mp4
+
+      echo "finished converting and embedding thumbnail into mp3"
 done
