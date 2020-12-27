@@ -1,0 +1,18 @@
+	BITFILE LABORATORY
+
+This is a simple program to convert mp4 files to mp3.
+It also embeds a thumbnail to the mp3 file.
+
+
+	Procedure
+
+1. Get an mp4 file.
+2. Extract a thumbnail from position x in the mp4.
+3. Save the thumnail.
+4. Extract the mp3 from the mp4
+5. Embed the thumbnail into the mp3 and save it.
+
+
+	Advanced.
+ Repeat the above for all files in a folder.
+
