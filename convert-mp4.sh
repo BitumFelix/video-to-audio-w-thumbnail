@@ -19,8 +19,10 @@ for f in *.mkv;
       # And save to variable image
       image="${f%.*}".png
 
-      # convert mp4 to mp3
-      #ffmpeg -i "$f" -acodec libmp3lame -q:a 2 "${f%.*}.mp3";
+      # convert mp4,mkv or any video to mp3
+      echo "Begining conversion of $f to mp3."
+      ffmpeg -i "$f" -acodec libmp3lame -q:a 2 "${f%.*}.mp3";
+      echo "Finished conversion of $f"
 
       #embedd thumbnail to mp4
 
