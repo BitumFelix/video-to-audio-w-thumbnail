@@ -6,26 +6,48 @@
 #     TO DO
 
 
+convert_to_mp3_with_thumnail (){
+    echo "Opening file $f"
 
+    # Extract thumbnail from video
+    # and save it to variable image.
+    echo "Extracting thumbnail from $f";
+    ffmpeg -i "$f" -ss 00:00:18 -vframes 1 "${f%.*}".png;
+    image="${f%.*}".png;
 
-for f in *.mkv;
-  do
-      echo "Opening file $f"
+    # convert mp4,mkv or any video to mp3
+    echo "Begining conversion of $f to mp3.";
+    ffmpeg -i "$f" -acodec libmp3lame -q:a 2 "${f%.*}.mp3";
+    audio="${f%.*}.mp3";
+    echo "Finished conversion of $f";
 
-      # Extract thumbnail from mp4
-      echo "Extracting thumbnail from $f"
-      ffmpeg -i "$f" -ss 00:00:18 -vframes 1 "${f%.*}".png
+    #embedd thumbnail to mp4
+    ffmpeg -i "$audio" -i "$image" -c copy -map 0 -map 1 -metadata:s:v title="Album cover" -metadata:s:v comment="Cover (Front)" "converted/$audio";
 
-      # And save to variable image
-      image="${f%.*}".png
+    #remove the temporary images and mp4
+    rm "$image";
+    rm "$audio";
 
-      # convert mp4,mkv or any video to mp3
-      echo "Begining conversion of $f to mp3."
-      ffmpeg -i "$f" -acodec libmp3lame -q:a 2 "${f%.*}.mp3";
-      echo "Finished conversion of $f"
+    echo "finished converting $f and embedding thumbnail into mp3"
 
-      #embedd thumbnail to mp4
+}
 
-      echo "finished converting $f and embedding thumbnail into mp3"
-      echo "$image"
+# make a directory for storing converted files
+mkdir converted;
+
+for f in *.mkv
+do
+    convert_to_mp3_with_thumnail;
+done
+
+for f in *.mp4
+do
+    convert_to_mp3_with_thumnail;
+
+done
+
+for f in *.webm
+do
+    convert_to_mp3_with_thumnail;
+
 done
