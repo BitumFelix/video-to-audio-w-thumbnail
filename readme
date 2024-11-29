@@ -4,7 +4,7 @@ This is a simple program to convert mp4 files to mp3.
 It also embeds a thumbnail to the mp3 file.
 
 
-	Procedure
+	<h2>Procedure<h2>
 
 1. Get an mp4 file.
 2. Extract a thumbnail from position x in the mp4.
